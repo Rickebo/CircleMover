@@ -203,10 +203,8 @@ public static class InputOutput
         int dwExtraInfo
     );
 
-    private const int MOUSEEVENTF_MOVE = 0x0001;
-
     public static void Move(int xDelta, int yDelta) =>
-        mouse_event(MOUSEEVENTF_MOVE, xDelta, yDelta, 0, 0);
+        mouse_event(0x1, xDelta, yDelta, 0, 0);
 
     public static void Move(double x, double y) =>
         Move((int)Math.Round(x, 0), (int)Math.Round(y, 0));
@@ -215,6 +213,9 @@ public static class InputOutput
     private static extern short GetAsyncKeyState(VirtualKeyStates key);
 
     public static bool IsPressed(VirtualKeyStates key) => GetAsyncKeyState(key) != 0;
+    
+    public static void LeftDown() => mouse_event(0x2, 0, 0, 0, 0);
+    public static void LeftUp() => mouse_event(0x4, 0, 0, 0, 0);
 
 
     /// <summary>
